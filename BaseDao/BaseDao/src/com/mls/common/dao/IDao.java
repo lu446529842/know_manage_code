@@ -11,7 +11,7 @@ import com.mls.common.bean.BaseEntity;
 /**
  * 丰富有的抽象base dao
  * @author yuzhe
- * @param <T>
+ * @param <T> stand for pk
  * @param <M>
  */
 public interface IDao<T extends Serializable, M extends BaseEntity> {
@@ -28,11 +28,7 @@ public interface IDao<T extends Serializable, M extends BaseEntity> {
 
 	public List<M> getEntityByIds(List<T> paramList);
 
-	public  Map<T, M> getEntityByIds(List<T> paramList,String whereSql);
-
 	public  M getEntityByObj(M entity);
-
-	public  M getEntityByIdUseDB(T pk);
 
 	public  M getEntityByObj(M entity, String whereSql);
 
