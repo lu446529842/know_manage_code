@@ -51,6 +51,4 @@ public interface IDao<T extends Serializable, M extends BaseEntity> {
 	public  List<M> getListByObj(M entity, PageInfo pageInfo,String whereSql);
 
 	public  List<M> getListByObj(M entity, PageInfo pageInfo,String whereSql, String orderBySql);
-
-	public  List<M> getListByObjSortByMultiField(M entity,PageInfo pageInfo, String whereSql, String orderBySql);
 }

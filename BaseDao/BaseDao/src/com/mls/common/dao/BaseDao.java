@@ -175,11 +175,4 @@ public abstract class BaseDao<T extends Serializable, M extends BaseEntity> exte
 	public List<M> getListByObj(M entity, PageInfo pageInfo, String whereSql,String orderBySql) {
 		return getSqlSession().selectList(getMapperNameSpace()+getListByEntityAndPageInfo, getMapParams(entity, pageInfo, whereSql, orderBySql));
 	}
-
-	@Deprecated
-	@Override
-	public List<M> getListByObjSortByMultiField(M entity, PageInfo pageInfo,String whereSql, String orderBySql) {
-		return null;
-	}
-
 }
