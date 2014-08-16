@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mls.paymonitor.daodemo.AlarmRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.mls.paymonitor.domaindemo.AlarmRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="alarmTime" property="alarmTime" jdbcType="TIMESTAMP" />
+    <result column="monitorKey" property="monitorKey" jdbcType="VARCHAR" />
+    <result column="alarmType" property="alarmType" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, alarmTime, monitorKey, alarmType
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="null" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_record
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from alarm_record
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.mls.paymonitor.domaindemo.AlarmRecord" >
+    insert into alarm_record (id, alarmTime, monitorKey, 
+      alarmType, content)
+    values (#{id,jdbcType=BIGINT}, #{alarmTime,jdbcType=TIMESTAMP}, #{monitorKey,jdbcType=VARCHAR}, 
+      #{alarmType,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mls.paymonitor.domaindemo.AlarmRecord" >
+    insert into alarm_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="alarmTime != null" >
+        alarmTime,
+      </if>
+      <if test="monitorKey != null" >
+        monitorKey,
+      </if>
+      <if test="alarmType != null" >
+        alarmType,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="alarmTime != null" >
+        #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monitorKey != null" >
+        #{monitorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null" >
+        #{alarmType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mls.paymonitor.domaindemo.AlarmRecord" >
+    update alarm_record
+    <set >
+      <if test="alarmTime != null" >
+        alarmTime = #{alarmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="monitorKey != null" >
+        monitorKey = #{monitorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null" >
+        alarmType = #{alarmType,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <delete id="deleteByEntity" parameterType="java.util.Map" >
+    delete from alarm_record
+    <include refid="selectCondition" />
+  </delete>
+  <select id="selectEntityListByEntityAndPageInfo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_record
+    <include refid="selectCondition" />
+    <if test="orderBy!=null" >
+      ${orderBy}
+    </if>
+    <if test="pageInfo!=null" >
+      limit ${pageInfo.startIndex} ,${pageInfo.pagesize}
+    </if>
+  </select>
+  <select id="selectEntityListByPrimaryKeyList" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_record  where id  in 
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <select id="getCountByEntity" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*) from alarm_record
+    <include refid="selectCondition" />
+  </select>
+  <sql id="selectCondition" >
+    <where >
+      <trim suffixOverrides="and" >
+        <if test="entity != null" >
+          <if test="entity.alarmTime != null" >
+            and alarmTime = #{entity.alarmTime,jdbcType=TIMESTAMP}
+          </if>
+          <if test="entity.monitorKey != null" >
+            and monitorKey = #{entity.monitorKey,jdbcType=VARCHAR}
+          </if>
+          <if test="entity.alarmType != null" >
+            and alarmType = #{entity.alarmType,jdbcType=INTEGER}
+          </if>
+          <if test="entity.content != null" >
+            and content = #{entity.content,jdbcType=LONGVARCHAR}
+          </if>
+        </if>
+      </trim>
+      <trim suffixOverrides="and" >
+        <if test="whereSql!=null" >
+          and ${whereSql}
+        </if>
+      </trim>
+    </where>
+  </sql>
+</mapper>

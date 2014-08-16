@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mls.paymonitor.daodemo.AlarmValveConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.mls.paymonitor.domaindemo.AlarmValveConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="monitorKey" property="monitorKey" jdbcType="VARCHAR" />
+    <result column="alarmValveType" property="alarmValveType" jdbcType="SMALLINT" />
+    <result column="timeBucket" property="timeBucket" jdbcType="TIMESTAMP" />
+    <result column="alarmValve" property="alarmValve" jdbcType="SMALLINT" />
+    <result column="alarmType" property="alarmType" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, monitorKey, alarmValveType, timeBucket, alarmValve, alarmType
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_valve_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from alarm_valve_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mls.paymonitor.domaindemo.AlarmValveConfig" >
+    insert into alarm_valve_config (id, monitorKey, alarmValveType, 
+      timeBucket, alarmValve, alarmType
+      )
+    values (#{id,jdbcType=INTEGER}, #{monitorKey,jdbcType=VARCHAR}, #{alarmValveType,jdbcType=SMALLINT}, 
+      #{timeBucket,jdbcType=TIMESTAMP}, #{alarmValve,jdbcType=SMALLINT}, #{alarmType,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mls.paymonitor.domaindemo.AlarmValveConfig" >
+    insert into alarm_valve_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="monitorKey != null" >
+        monitorKey,
+      </if>
+      <if test="alarmValveType != null" >
+        alarmValveType,
+      </if>
+      <if test="timeBucket != null" >
+        timeBucket,
+      </if>
+      <if test="alarmValve != null" >
+        alarmValve,
+      </if>
+      <if test="alarmType != null" >
+        alarmType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="monitorKey != null" >
+        #{monitorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValveType != null" >
+        #{alarmValveType,jdbcType=SMALLINT},
+      </if>
+      <if test="timeBucket != null" >
+        #{timeBucket,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmValve != null" >
+        #{alarmValve,jdbcType=SMALLINT},
+      </if>
+      <if test="alarmType != null" >
+        #{alarmType,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mls.paymonitor.domaindemo.AlarmValveConfig" >
+    update alarm_valve_config
+    <set >
+      <if test="monitorKey != null" >
+        monitorKey = #{monitorKey,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmValveType != null" >
+        alarmValveType = #{alarmValveType,jdbcType=SMALLINT},
+      </if>
+      <if test="timeBucket != null" >
+        timeBucket = #{timeBucket,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alarmValve != null" >
+        alarmValve = #{alarmValve,jdbcType=SMALLINT},
+      </if>
+      <if test="alarmType != null" >
+        alarmType = #{alarmType,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByEntity" parameterType="java.util.Map" >
+    delete from alarm_valve_config
+    <include refid="selectCondition" />
+  </delete>
+  <select id="selectEntityListByEntityAndPageInfo" resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_valve_config
+    <include refid="selectCondition" />
+    <if test="orderBy!=null" >
+      ${orderBy}
+    </if>
+    <if test="pageInfo!=null" >
+      limit ${pageInfo.startIndex} ,${pageInfo.pagesize}
+    </if>
+  </select>
+  <select id="selectEntityListByPrimaryKeyList" resultMap="BaseResultMap" parameterType="java.util.List" >
+    select 
+    <include refid="Base_Column_List" />
+    from alarm_valve_config  where id  in 
+    <foreach collection="list" index="index" item="item" open="(" separator="," close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <select id="getCountByEntity" resultType="java.lang.Integer" parameterType="java.util.Map" >
+    select count(*) from alarm_valve_config
+    <include refid="selectCondition" />
+  </select>
+  <sql id="selectCondition" >
+    <where >
+      <trim suffixOverrides="and" >
+        <if test="entity != null" >
+          <if test="entity.monitorKey != null" >
+            and monitorKey = #{entity.monitorKey,jdbcType=VARCHAR}
+          </if>
+          <if test="entity.alarmValveType != null" >
+            and alarmValveType = #{entity.alarmValveType,jdbcType=SMALLINT}
+          </if>
+          <if test="entity.timeBucket != null" >
+            and timeBucket = #{entity.timeBucket,jdbcType=TIMESTAMP}
+          </if>
+          <if test="entity.alarmValve != null" >
+            and alarmValve = #{entity.alarmValve,jdbcType=SMALLINT}
+          </if>
+          <if test="entity.alarmType != null" >
+            and alarmType = #{entity.alarmType,jdbcType=SMALLINT}
+          </if>
+        </if>
+      </trim>
+      <trim suffixOverrides="and" >
+        <if test="whereSql!=null" >
+          and ${whereSql}
+        </if>
+      </trim>
+    </where>
+  </sql>
+</mapper>

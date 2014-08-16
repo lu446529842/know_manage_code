@@ -21,7 +21,9 @@ public interface IDao<T extends Serializable, M extends BaseEntity> {
 	public  int delete(T pk);
 
 	public  int deleteByEntity(M entity);
-
+	
+	public  int deleteByEntity(M entity,String whereSql);
+	
 	public  int update(M entity);
 
 	public  M getEntityById(T pk);
